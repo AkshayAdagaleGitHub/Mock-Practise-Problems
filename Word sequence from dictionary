@@ -1,0 +1,209 @@
+/*
+Given an input string and a dictionary of words, find out if the input 
+string can be segmented into a space-separated sequence of dictionary words. 
+See following examples for more details.
+
+Consider the following dictionary
+{ i, like, sam, sung, samsung, mobile, ice,
+  cream, icecream, man, go, mango}
+
+Input:  ilike
+Output: Yes
+The string can be segmented as "i like".
+
+Input:  ilikesamsung
+Output: Yes
+The string can be segmented as "i like samsung" or "i like sam sung".
+
+Input: abigjug
+Output: No
+
+*/            
+
+import java.io.*;
+import java.util.*;
+
+class MyCode {
+	public static void main (String[] args) {
+		System.out.println("Hello Java");
+    String input = "ilike";
+    Set<String> dict = new HashSet<>();
+    dict.add("i");
+    dict.add("like");
+    dict.add("ice");
+    dict.add("samsung");
+    System.out.println(IsSpaceSeparated(input, dict));
+	}
+
+  public static boolean IsSpaceSeparated(String input, Set<String> dict){
+          
+     boolean dp[][] = new boolean[input.length()][input.length()];
+      
+      int count = 0;
+      int y = 0;
+      for(int x = 0; x < dp.length; x++){
+        for(y = x; y < dp[x].length; y++){
+           if(x == y){
+             String subString = input.substring(x,y+1);
+              if(dict.contains("" + subString)){
+               dp[x][y] = true;
+                System.out.println("For "+ x + "," + y + " " +dp[x][y]);
+            }
+           }
+           else if(x == 0 && y != 0){
+            String subString = input.substring(x, y+1);
+             if(dict.contains("" + subString)){
+               dp[x][y] = true;
+             }
+           }
+           else if(x > 0 && y > 0){
+            String subString = input.substring(x, y+1);
+             //System.out.println(subString);
+              if(dict.contains("" + subString)){
+                dp[x][y] = true;
+                System.out.println("For " + x + "," + y + " " + dp[x][y]);
+              }
+           }
+        }
+      }
+    for(int i = 0 ; i < dp.length - 1; i++){
+        if(dp[0][i] && dp[i+1][input.length()-1]){
+              dp[i][input.length() -1] = true;
+          }
+    }
+
+    return dp[0][input.length()-1];
+  }
+
+}
+
+/*
+
+           ## Diagramming the problem solution
+              
+                         str = ilike 
+                              /  
+                          ilike     
+                          /          \
+                        ilik        like
+                        /   \         \
+                      ili   lik        return true
+                      /   \
+                     il   li
+                     /  \
+                    i   l
+                   /  \
+      return true      return
+     
+     size= str.length()
+    for(int i = 0; i < size; i++){
+      String s = str.subString(i,size-1);
+      size--;
+      IsWord(s, size) ;
+      str.subString(i+1, size);
+    } 
+
+    0 1 2 3 4
+    i l i k e
+
+    "ilike" 
+    i like   dp[0][0] && dp[1][4]
+    il ike
+    ilik e
+    ilike
+
+    i like samsung
+    i like sam sung
+
+    0     1     2     3     4
+0   T     F     F     F     *
+
+1        F      F     F      T
+
+2               T     F      F
+
+3                     F      F
+
+4                            F
+    
+   1. Top Down Dynamic Programming.
+                            ilike
+                      i        il       ili         ilik      ilike
+                   l     li   lik  like
+
+          boolean isWordSep(String input, Set<String> dict, String out) {
+            if (input.length() == 0)
+               print out;
+            for (int i = 1; i < input.length(); i++) {
+              String pre = input.substring(0, i + 1)
+              if (dict.contains.(pre)) {
+                isWordSep(input.substring(i+1),dict, out + " " + pre)
+              }
+            }
+          }
+
+cache 
+
+Bottom up Dynamic Programming 0(mn)
+
+1. Top Down Programming.
+2. Top Down Programming + Cache => Stack space
+3. Bottom up Programming.
+
+*/
+// Work through
+/*  0 1 2 3 4
+    i l i k e
+
+    "ilike" 
+    i like   dp[0][0] && dp[1][4]
+    il ike
+    ilik e
+    ilike
+
+    i like samsung
+    i like sam sung
+
+    ilike => check in dict
+    i like => dp[0][0] && dp[1][4]
+    il ike => dp[0][1] &&
+
+    0     1     2     3     4
+0   T     F     F     F     *
+
+1        F      F     F      T
+
+2               T     F      F
+
+3                     F      F
+
+4                            F
+
+    (0,0) 0,1) (0,2)
+         (1,1) (1,2)
+               (2,2)
+0 1 2 3 4 
+i l i k e
+
+0,0  0,1  0,2  0,3  0,4
+     1,1  1,2  1,3  1,4
+          2,2  2,3  2,4
+               3,3  3,4
+                    4,4
+
+
+0,0 0,1 0,2  0,3 0,4
+    1,1 1,2  1,3 1,4
+        2,2  2,3 2,4
+             3,3 3,4
+                 4,4
+
+
+0,0  1,1 2,2 3,3 4,4
+0,1 1,2 2,3 3,4
+0,2 1,3 2,4
+0,3 1,4
+0,4
+           
+
+*/
