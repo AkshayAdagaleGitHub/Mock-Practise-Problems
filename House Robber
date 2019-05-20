@@ -1,0 +1,67 @@
+/*
+208 - House Robber
+A house robber has a map of houses and the amount of gold in each home. 
+The robber knows that if two adjacent homes are robbed, then the neighborhood 
+security system will sound. Determine the total amount of gold the robber 
+can get without setting off the alarm.
+
+Input: 	 Array of Nonnegative Integers
+Output: 	Integer
+*/
+
+import java.io.*;
+import java.util.*;
+
+class MyCode {
+	public static void main (String[] args) {
+		System.out.println("Hello Java");
+    Integer[][] wts = {null, {}, {1},{1,2},{1,2,3},{1, 2, 4, 1, 5, 12, 5}};
+    for (Integer[] wt: wts) {
+        List<Integer> temp = null;
+        if (wt != null)
+           temp = Arrays.asList(wt);
+        System.out.println(temp + " " + maxGoldWt(wt));
+    }
+    
+	}
+   public static int maxGoldWt(Integer[] wt) {
+     if (wt == null || wt.length == 0) return -1;
+     if (wt.length == 1) return wt[0];
+     int[] dp = new int[wt.length];
+     dp[0] = wt[0];
+     dp[1] = Math.max(wt[0], wt[1]);
+     for (int i = 2; i < dp.length; i++) {
+        dp[i] = Math.max(dp[i - 2] + wt[i], dp[i - 1]);
+     }
+     return dp[dp.length - 1];
+   }
+}
+/*
+
+##Diagramming
+
+ Top Down                   Bottom Up
+  Cache
+  Stack                       Less Storage
+                              
+H1 & H3   H2
+
+0  1  2
+1  2  3
+
+{1} {2} {3,1}
+
+dp[0] = input[0];
+dp[1] = Max(input[1], input[0]);
+dp[i] =  Max{dp[i - 2] + input[i], dp[i - 1]}           i > 1
+
+0  1  2  3  4   5   6
+1, 2, 4, 1, 5, 12,  5
+
+H0   H1  H2  H3  H4  H5  H6  
+0    1   2   3   4   5   6    
+1    2   5   5   10  17  17
+
+Input: [1, 2, 3]				 =>	Output: 4
+Input: [1, 2, 4, 1, 5, 12, 5]	=>	Output: 17
+*/
