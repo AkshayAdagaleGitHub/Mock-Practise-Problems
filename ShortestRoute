@@ -1,0 +1,106 @@
+/*
+## 320 - Shortest Route
+Given an unweighted, undirected graph which represents a metro map as follows vertices are stations edges are the path between two stations
+Given a start station and ending station, determine the minimum number of stops that must be made to get to the destination.
+
+Input: A Graph (unweighted/undirected), a starting Vertex, and an ending Vertex
+Output: Integer
+
+*/
+
+import java.util.Queue;
+import java.util.*;
+
+class Graph {
+	
+	int vertex;
+	List<Graph> neighbours = new ArrayList<Graph>();
+		
+	public Graph(int vertex) {
+		this.vertex = vertex;
+	}
+		
+}
+
+public class ShortestRoute {
+
+	public static void main(String[] args) {
+		
+		  Graph one = new Graph(1);
+	    Graph two = new Graph(2);
+	    Graph three = new Graph(3);
+	    Graph four = new Graph(4);
+	    Graph five = new Graph(5);
+	    Graph six = new Graph(6);
+	    Graph seven = new Graph(7);
+
+	    one.neighbours.add(two);
+
+	    two.neighbours.add(one);
+	    two.neighbours.add(three);
+	    two.neighbours.add(five);
+
+	    three.neighbours.add(four);
+	    three.neighbours.add(two);
+
+	    four.neighbours.add(seven);
+	    four.neighbours.add(three);
+
+	    five.neighbours.add(seven);
+	    five.neighbours.add(two);
+
+	    seven.neighbours.add(four);
+	    seven.neighbours.add(five);
+
+	    System.out.println( BFS( one, seven));   //2
+	    System.out.println( BFS( two, seven));   //1
+	    System.out.println( BFS( one, one));     //0
+	    System.out.println( BFS( one, two));     //0		
+		  System.out.println( BFS( one, three));   //1
+		
+	}
+	//BFS for min stops
+	public static int BFS(Graph start, Graph end) {
+		
+		if(start == null || end == null) {
+			return -1;
+		}
+		
+		if(start == end) {
+			return 0;
+		}
+		
+		//Minimum Stops required
+		int minStops = 0;
+		
+		//Queue to traverse all the vertices
+		Queue<Graph> q = new LinkedList<>();
+		q.add(start);
+		
+		//Visited set to mark each vertex visited
+		Set<Graph> visited = new HashSet<>();
+		visited.add(start);
+		
+		Graph marker = new Graph(-1);
+		q.add(marker);
+		
+		while(!q.isEmpty()) {
+			Graph currentVertex = q.remove();
+			if(currentVertex == marker) {
+				minStops++;
+				q.add(marker);
+			}else if(currentVertex == end){
+				break;
+			}else {
+				for(Graph edge : currentVertex.neighbours) {
+					if(!visited.contains(edge)) {
+						visited.add(edge);
+						q.add(edge);
+					}
+				}
+			}
+		}
+		return minStops -1;
+	}
+
+}
