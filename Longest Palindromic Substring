@@ -1,0 +1,122 @@
+#Longest Palindromic Substring (Non contiguous)
+
+// package whatever; // don't place package name!
+/*
+315 - Longest Palindromic Subsequence
+
+Given a string of lowercase characters (a-z), return the length of the longest 
+palindromic subsequence.
+A palindromic subsequence is a series of characters (not necessarily consecutive) that 
+form a palindrome.
+
+Input: {String}
+Output: {Integer}
+
+Input: vtvvv
+Output : 4
+
+Input:  "pwnnb"
+Output: 2
+
+Longest palindromic subsequence here is "nn"
+
+
+Input:  "ttbtctcbt"
+Output: 7
+
+Longest palindromic subsequence here is "tbtctbt"
+
+  Test Cases
+  I/P                  O/P
+  NULL                 0
+  ""                   0
+  "a"                  1
+  "aa"                 2
+  "ab"                 1
+  "aba"                3
+  "abba"               4
+
+  */
+
+import java.io.*;
+import java.util.Map;
+import java.util.HashMap;
+
+class MyCode {
+
+
+	public static void main (String[] args) {
+		System.out.println("Hello Java");
+    String array[] = {null,"","a","aa","ab","aba","anbna","abba","vtvvv","pwnnb","ttbtctcbt"};
+    System.out.println();
+    for(String s : array){
+      System.out.println("String " + s + " Longest Palindromic Substring " + lpsLength(s));
+    }
+  }
+
+  public static int lpsLength(String input) {
+    
+    if(input == null){
+        return 0;
+    }
+    Map<String , Integer> cache = new HashMap<>();
+    return lpsLength(input, 0 , input.length() - 1, cache);
+  }
+  
+  public static int lpsLength(String input, int left , int right, Map<String,Integer> cache){
+
+    String key = left + "_" + right;
+    
+    if(cache.containsKey(key)){
+        System.out.println("Using cache for key: " + key);
+        return cache.get(key);
+    }
+    
+    if(left > right){
+      return 0;
+    }
+
+    if(left == right){ 
+      cache.put(key, 1);
+      return 1;
+    }
+            
+    if(input.charAt(left) == input.charAt(right)){
+        int val =  2 + lpsLength( input, ++left, --right , cache);
+        cache.put(key, val);
+        return val;
+    }                 
+                     
+    int val =  Math.max(lpsLength(input, ++left, right , cache), lpsLength( input, left, --right, cache ) );
+    cache.put(key, val);
+    return val;
+  }
+
+}
+
+/* Diagramming                         v t v v v
+                             i j
+                        /                                           1). 2 + LCS(i++,j--)
+                                                                    2). Math.max(LCS(i,j--),LCS(i++,j)) 
+      (i==j)->2+(i++,j--) (2+2)
+                /
+          (i!=j)(2)
+            /
+     Math.max((i,j--), (i++,j))  
+        /         \      
+          (i==j)->2+(i++,j--)
+                    0
+    (i,j--),(i++,j)
+    /          
+return 0
+ 
+ Using the cache
+ i => 0, j => 4
+ KEY    VALUE
+"0_4"     4   
+ 1_3       2
+ 2_3       1
+ 1_2       1   
+ 1_1       1
+ 2_2       1                             
+*/
