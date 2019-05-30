@@ -1,5 +1,5 @@
-/*
-Given an input string (s) and a pattern (p), implement wildcard pattern matching with support for '?' and '*'.
+
+# Given an input string (s) and a pattern (p), implement wildcard pattern matching with support for '?' and '*'.
 
 '?' Matches any single character.
 '*' Matches any sequence of characters (including the empty sequence).
@@ -44,8 +44,6 @@ s = "acdcb"
 p = "a*c?b"
 Output: false
 
-/*
-/*
 ## Diagramming
 
 s = "adceb"
@@ -66,5 +64,3 @@ Output: true
                           *   T  T  T
                           
 return the matrix[pattern.length()][string.length()];
-
-*/
