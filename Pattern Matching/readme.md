@@ -45,21 +45,23 @@ p = "a*c?b"
 Output: false
 
 ## Diagramming
-
+-----------------------------------------------------------------------------
 s = "adceb"
 p = "*a*b"
 Output: true
+--------------------------
                               0  a  d  c  e  b
                           0   T  F  F  F  F  F
                           *   T  T  T  T  T  T  
                           a   F  T  F  F  F  F  
                           *   T  T  T  T  T  T 
                           b   F  F  F  F  F  T
-
+---------------------------------
 s = "aa"
 p = "*"
 Output: true
-                              0  a  a
+------------------------------------------
+                             0  a  a
                           0   T  F  F
                           *   T  T  T
                           
