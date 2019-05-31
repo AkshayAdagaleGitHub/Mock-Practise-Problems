@@ -1,0 +1,67 @@
+import java.io.*;
+
+class MyCode {
+	public static void main (String[] args) {
+		//System.out.println("Hello Java");
+
+    String[] text = {"acbacxabcdabxabcdacbacdabcy", "ABCDEFGHIJ", "ABABCABDABF","THIS IS A TEST TEXT","AABAACAADAABAABA"};
+    String[] pattern = {"acbacdabcy", "DEFG", "ABD","TEST","AABA"};
+
+    for (int i = 0; i < text.length; i++)
+        System.out.println(isStringContained(text[i],pattern[i]));
+	}
+
+
+    public static boolean isStringContained(String text, String pattern){
+
+        if (text == null || pattern == null || text.isEmpty() || pattern.isEmpty()){
+              return false;
+        }
+
+        // Pre-processing the pattern.
+        int i = 0;
+        int j = 1;
+        
+        int patternPointer[] = new int[pattern.length()];
+        boolean back = false;
+        
+        while (j < pattern.length()){
+            if (pattern.charAt(i) == pattern.charAt(j)){
+                patternPointer[j] = i + 1;
+                i++;j++;
+                back = true;
+            } else if (back){
+              i = 0;
+              back = false;
+            } else 
+                j++;        
+        }
+
+        // Find the pattern in the text
+        int y = 0; int start = 0;
+        boolean pointingTo = false;
+        boolean firstOccurance = false; 
+        for (int x = 0; x < text.length(); x++){
+            if (text.charAt(x) == pattern.charAt(y)){
+                y++; 
+                pointingTo = true;
+                if(!firstOccurance){
+                    start = x;
+                    firstOccurance = true;
+                }
+            } else if (pointingTo && y > 0){
+                  y = patternPointer[y - 1];
+                  pointingTo = false;
+                  x = x - 1;
+                  firstOccurance = false;
+            } 
+            if (y == pattern.length() - 1) {
+               System.out.println("For text "+ text + "  Pattern "+ pattern + " is found at " + (start+1));
+               return true;
+            }
+        }
+      System.out.println("For text "+ text +" Pattern is not found" ); // + (x - pattern.length()));
+        return false;
+    }
+
+}
