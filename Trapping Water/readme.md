@@ -20,7 +20,6 @@ Output: 7
 # Constraints
 
 ```
-                                 Advanced			 Insane
-Time Complexity:			        O(N)				O(N)
-Auxiliary Space Complexity: 		O(N)				O(1)
+Time Complexity: (Advanced) O(N) (Insane) O(N)
+Auxiliary Space Complexity: (Advanced) O(N)		(Insane) O(1)
 ```
