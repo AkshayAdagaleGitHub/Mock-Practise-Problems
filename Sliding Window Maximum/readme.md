@@ -17,11 +17,4 @@ Window 7: {2, 1, 5}, max = 5
 
 Input: arr[] = {6, 7, 5, 2, 1, 7, 2, 1, 10}, k = 2
 Output: 7 7 5 2 7 7 2 10
-
-result = []
-create a stack
-and then push in k number from arr into the stack
-and then get of Max
-push that into result
-and do that until you traverse thru array
 ```
