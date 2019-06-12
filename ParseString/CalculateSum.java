@@ -1,4 +1,4 @@
-```
+
 import java.io.*;
 
 class CalculateSum {
@@ -45,4 +45,3 @@ class CalculateSum {
     return total;
   }
 }
-```
