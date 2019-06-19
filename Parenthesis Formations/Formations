@@ -1,0 +1,39 @@
+
+import java.io.*;
+import java.util.List;
+import java.util.ArrayList;
+
+class MyCode {
+	public static void main (String[] args) {
+		System.out.println("Hello Java");
+    List<String> formations = new ArrayList<>();
+    StringBuilder sb = new StringBuilder();
+    int n = 4;
+    for(int i = 1 ; i < 5; i++){
+      parenthesesFormation(i, sb,0, 0, formations);
+      System.out.println(formations);
+    }
+  }
+
+  public static void parenthesesFormation(int n, StringBuilder sb,int totalOpen, int totalClose, List<String> formations){
+      if(n == 0){
+         return;
+      }
+      
+      if(sb.length()  == 2*n){
+          formations.add(sb.toString());
+          return;
+      }
+
+      if(totalOpen < n){
+          StringBuilder builder = new StringBuilder (sb);
+          builder.append("(");
+          parenthesesFormation(n, builder, totalOpen + 1, totalClose, formations );
+        }
+      if(totalClose < totalOpen){
+          StringBuilder builder = new StringBuilder (sb);
+          builder.append(")");
+          parenthesesFormation(n, builder,totalOpen, totalClose + 1, formations );
+        }
+  }
+}
