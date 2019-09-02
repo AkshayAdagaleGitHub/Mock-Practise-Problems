@@ -33,4 +33,7 @@ Invert a binary tree
 Longest Palindromic Substring 
 ShortestRoute 
 Word sequence from dictionary
-
+253. Meeting Rooms II 
+332. Reconstruct Itinerary 
+347. Top K Frequent Elements 
+692. Top K Frequent Words
