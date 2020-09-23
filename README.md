@@ -39,3 +39,8 @@ Word sequence from dictionary
 692. Top K Frequent Words
 Number of Paths
 Deletion Distance
+Time Planner
+K-Messed Array Sort
+Sentence Reverse
+Bracket Match
+Island Count
