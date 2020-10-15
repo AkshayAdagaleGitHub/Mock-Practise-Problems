@@ -7,6 +7,7 @@ It is guaranteed that grid[sr][sc] = grid[tr][tc] = 1, and the starting and targ
 If the task is impossible, return -1.
 
 # Examples:
+````
 input:
 grid = [[1, 1, 1, 1], [0, 0, 0, 1], [1, 1, 1, 1]]
 sr = 0, sc = 0, tr = 2, tc = 0
@@ -23,9 +24,9 @@ output: -1
 1111
 0001
 1011
-
+````
 # Constraints:
-
+````
 [time limit] 5000ms
 [input] array.array.integer grid
 1 ≤ arr.length = arr[i].length ≤ 10
@@ -35,3 +36,4 @@ output: -1
 [input] integer tc
 All sr, sc, tr, tc are valid locations in the grid, grid[sr][sc] = grid[tr][tc] = 1, and (sr, sc) != (tr, tc).
 [output] integer
+````
